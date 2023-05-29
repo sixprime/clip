@@ -1,0 +1,26 @@
+ninja_required_version = 1.10
+
+binary    = clip.exe
+
+builddir  = build
+cxx       = clang++
+
+includes  = -Iinclude/ -Iexternal/visit_struct/include/ -Itests/
+#defines   = -DWITH_TESTS
+defines   =
+cflags    = -std=c++20 -Wall -Wextra -Wpedantic $includes $defines
+ldflags   = -L$builddir
+
+rule compile
+  command = $cxx $cflags -c $in -o $out
+
+rule link
+  command = $cxx $ldflags $in -o $out
+
+build $builddir/tests/simple.o: compile tests/simple.cpp
+
+build $binary: link $builddir/tests/simple.o
+
+default $binary
+
+build all: phony $binary
