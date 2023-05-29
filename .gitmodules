@@ -1,0 +1,3 @@
+[submodule "external/visit_struct"]
+	path = external/visit_struct
+	url = https://github.com/sixprime/visit_struct.git
